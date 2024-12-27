@@ -16,14 +16,21 @@ pipeline {
         }
         stage('SAST with SonarQube') {
             steps {
-                echo 'Running SonarQube for SAST...'
-                // You can add the command to run SonarQube analysis
+                withSonarQubeEnv('Local SonarQube') {
+                    sh 'sonar-scanner -Dsonar.projectKey=DevSecOps-Demo -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000'
+                }
             }
         }
         stage('DAST with OWASP ZAP') {
             steps {
                 echo 'Running OWASP ZAP for DAST...'
                 // Add the command to run ZAP security scan
+            }
+        }
+        stage('Dependency Scanning with Snyk') {
+            steps {
+                echo 'Running Snyk for Dependency Scanning...'
+                // Add the command to run Snyk dependency scan
             }
         }
         stage('Deploy') {
