@@ -16,7 +16,7 @@ pipeline {
         }
         stage('SAST with SonarQube') {
             steps {
-                withSonarQubeEnv('Local SonarQube') {
+                withSonarQubeEnv('DevSecOps-Demo SonarQube') {
                     sh 'sonar-scanner -Dsonar.projectKey=DevSecOps-Demo -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000'
                 }
             }
